@@ -1,0 +1,129 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "basic-api-ts",
+        "version": "3.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        }
+    ],
+    "paths": {
+        
+    "/api/time": {
+      "get": {
+        "summary": "Obtener la hora actual",
+        "description": "Devuelve la hora actual en formato ISO 8601 y su marca de tiempo Unix.",
+        "operationId": "getTime",
+        "responses": {
+          "200": {
+            "description": "Hora actual obtenida correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "summary": "Comprobar el estado de salud",
+        "description": "Devuelve el estado y datos operativos basicos del servicio.",
+        "operationId": "getHealth",
+        "responses": {
+          "200": {
+            "description": "Servicio saludable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TimeResponse": {
+        "type": "object",
+        "required": [
+          "time",
+          "unixTimestamp",
+          "simulatedDelayMs"
+        ],
+        "properties": {
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Hora actual en formato ISO 8601.",
+            "example": "2026-08-28T18:30:08.939Z"
+          },
+          "unixTimestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Hora actual como marca de tiempo Unix en milisegundos.",
+            "example": 1787941808939
+          },
+          "simulatedDelayMs": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Retraso simulado de la respuesta en milisegundos.",
+            "example": 4000
+          }
+        }
+      },
+      "HealthResponse": {
+        "type": "object",
+        "required": [
+          "status",
+          "service",
+          "uptimeSeconds",
+          "checkedAt",
+          "simulatedDelayMs"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "healthy"
+            ],
+            "description": "Estado de salud del servicio.",
+            "example": "healthy"
+          },
+          "service": {
+            "type": "string",
+            "description": "Nombre del servicio.",
+            "example": "node-typescript-async-demo"
+          },
+          "uptimeSeconds": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "description": "Tiempo que lleva ejecutandose el proceso, en segundos.",
+            "example": 125
+          },
+          "checkedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha y hora en que se comprobo el estado.",
+            "example": "2026-08-28T18:30:08.939Z"
+          },
+          "simulatedDelayMs": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Retraso simulado de la respuesta en milisegundos.",
+            "example": 4000
+          }
+        }
+      }
+    }
+  }
+}

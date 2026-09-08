@@ -5,6 +5,7 @@
 "outDir": "dist",
 "rootDir": "src",
 "types": ["node"],
-"strict": true
+"strict": true,
+"skipLibCheck": true
 }
 }
